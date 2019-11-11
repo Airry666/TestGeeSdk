@@ -211,6 +211,9 @@ public abstract class BaseLaunchActivity extends AppCompatActivity {
                             if (o.isIssucc()) {
                                 Log.e("校验登录:", "已经登录过");
                             } else {
+                                if (!TextUtils.isEmpty(o.getMsg())) {
+                                    ToastUtils.showShortToast(o.getMsg());
+                                }
                                 Log.e("校验登录:", "已在别机登录，本机下线");
                             }
                         }
