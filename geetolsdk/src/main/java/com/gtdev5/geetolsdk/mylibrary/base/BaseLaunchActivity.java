@@ -196,7 +196,7 @@ public abstract class BaseLaunchActivity extends AppCompatActivity {
      */
     private void checkLogin() {
         if (Utils.isNetworkAvailable(this)) {
-            if (!TextUtils.isEmpty(Utils.getUserId()) && !Utils.getUserId().equals("0")) {
+            if (!TextUtils.isEmpty(Utils.getUserId())) {
                 // 登录过
                 HttpUtils.getInstance().checkLogin(new BaseCallback<ResultBean>() {
                     @Override
