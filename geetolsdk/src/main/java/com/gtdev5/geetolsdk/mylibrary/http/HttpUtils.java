@@ -800,7 +800,7 @@ public class HttpUtils {
                         ResultBean resultBean = GsonUtils.getFromClass(result, ResultBean.class);
                         if (resultBean != null && !resultBean.isIssucc()) {
                             // 已在别的设备登陆，清空本机登陆状态
-                            Utils.setLoginInfo("0", "", "");
+                            Utils.setLoginInfo("", "", "");
                             if (!TextUtils.isEmpty(resultBean.getMsg())) {
                                 ToastUtils.showShortToast(resultBean.getMsg());
                             }
