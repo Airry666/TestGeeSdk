@@ -3,7 +3,7 @@
     <color name="main_Color">#9BABEF</color>
     <color name="main_Color1">#889BABEF</color>
 
-    <!-- 反馈部分主题色 -->
+    <!-- 反馈部分主题色/状态栏颜色 -->
     <color name="gt_main_color">#51ACE9</color>
     <!-- 反馈部分背景颜色 -->
     <color name="gt_bg_common">#ffffff</color>
