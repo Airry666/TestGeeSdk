@@ -40,6 +40,7 @@ import okhttp3.Response;
  * 反馈回复
  */
 public class GTSuggestReplyActivity extends BaseGTActivity {
+    private TextView mAddText;
     private EditText mContentEdit;
     private RecyclerView mPicRecyclerView;
     private GTImageAddAdapter mImageAddAdapter;
@@ -63,9 +64,9 @@ public class GTSuggestReplyActivity extends BaseGTActivity {
         mContentEdit = findViewById(R.id.et_content);
         mPicRecyclerView = findViewById(R.id.recyclerview);
         mProgressBar = findViewById(R.id.progressBar);
-        TextView add = findViewById(R.id.tv_add);
+        mAddText = findViewById(R.id.tv_add);
         back.setOnClickListener(v -> onBackPressed());
-        add.setOnClickListener(v -> addReply());
+        mAddText.setOnClickListener(v -> addReply());
         initRecyclerView();
     }
 
@@ -100,6 +101,7 @@ public class GTSuggestReplyActivity extends BaseGTActivity {
             return;
         }
         mProgressBar.setVisibility(View.VISIBLE);
+        mAddText.setEnabled(false);
         new Thread(() -> {
             StringBuilder sb = new StringBuilder("");
             try {
@@ -118,6 +120,7 @@ public class GTSuggestReplyActivity extends BaseGTActivity {
                 @Override
                 public void onFailure(Request request, Exception e) {
                     mProgressBar.setVisibility(View.GONE);
+                    mAddText.setEnabled(true);
                     ToastUtils.showShortToast("反馈失败" + e.toString());
                 }
 
@@ -129,6 +132,7 @@ public class GTSuggestReplyActivity extends BaseGTActivity {
                         finish();
                     } else {
                         mProgressBar.setVisibility(View.GONE);
+                        mAddText.setEnabled(true);
                         ToastUtils.showShortToast("反馈失败" + o.getMsg());
                     }
                 }
@@ -136,6 +140,7 @@ public class GTSuggestReplyActivity extends BaseGTActivity {
                 @Override
                 public void onError(Response response, int errorCode, Exception e) {
                     mProgressBar.setVisibility(View.GONE);
+                    mAddText.setEnabled(true);
                     ToastUtils.showShortToast("反馈失败" + e.toString());
                 }
             });

@@ -1,15 +1,19 @@
 package com.gtdev5.geetolsdk.mylibrary.feedback.utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
+import android.support.v4.graphics.ColorUtils;
 import android.util.Base64;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.gtdev5.geetolsdk.R;
+import com.gyf.barlibrary.ImmersionBar;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -26,10 +30,14 @@ public class GTUtils {
      * 设置沉浸式状态栏
      */
     public static void setImmersionStatusBar(Activity activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = activity.getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(activity.getResources().getColor(R.color.gt_main_color));
+        if (ColorUtils.calculateLuminance(activity.getResources().getColor(R.color.gt_main_color)) >= 0.5) {
+            ImmersionBar.with(activity)
+                    .statusBarDarkFont(true, 0.2f)//状态栏字体深色或亮色
+                    .init();
+        } else {
+            ImmersionBar.with(activity)
+                    .statusBarDarkFont(false, 0.2f)//状态栏字体深色或亮色
+                    .init();
         }
     }
 

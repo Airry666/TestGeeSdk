@@ -42,6 +42,7 @@ import okhttp3.Response;
  * 添加反馈
  */
 public class GTSuggestAddActivity extends BaseGTActivity {
+    private TextView mAddText;
     private EditText mTitleEdit, mContentEdit;
     private RecyclerView mPicRecyclerView, mTypeRecyclerView;
     private GTImageAddAdapter mImageAddAdapter;
@@ -67,9 +68,9 @@ public class GTSuggestAddActivity extends BaseGTActivity {
         mPicRecyclerView = findViewById(R.id.recyclerview);
         mTypeRecyclerView = findViewById(R.id.recyclerview1);
         mProgressBar = findViewById(R.id.progressBar);
-        TextView add = findViewById(R.id.tv_add);
+        mAddText = findViewById(R.id.tv_add);
         back.setOnClickListener(v -> onBackPressed());
-        add.setOnClickListener(v -> addSuggest());
+        mAddText.setOnClickListener(v -> addSuggest());
         initRecyclerView();
     }
 
@@ -120,6 +121,7 @@ public class GTSuggestAddActivity extends BaseGTActivity {
             return;
         }
         mProgressBar.setVisibility(View.VISIBLE);
+        mAddText.setEnabled(false);
         new Thread(() -> {
             StringBuilder sb = new StringBuilder("");
             try {
@@ -140,6 +142,7 @@ public class GTSuggestAddActivity extends BaseGTActivity {
                 public void onFailure(Request request, Exception e) {
                     new Handler(getMainLooper()).post(() -> {
                         mProgressBar.setVisibility(View.GONE);
+                        mAddText.setEnabled(true);
                         ToastUtils.showShortToast("反馈失败" + e.toString());
                     });
                 }
@@ -148,12 +151,14 @@ public class GTSuggestAddActivity extends BaseGTActivity {
                 public void onSuccess(Response response, ResultBean o) {
                     if (o.isIssucc()) {
                         mProgressBar.setVisibility(View.GONE);
+                        mAddText.setEnabled(true);
                         ToastUtils.showShortToast("提交成功,感谢您的反馈,有你我们会做的更好,还请您及时关注您的反馈状态哦");
                         setResult(RESULT_OK);
                         finish();
                     } else {
                         new Handler(getMainLooper()).post(() -> {
                             mProgressBar.setVisibility(View.GONE);
+                            mAddText.setEnabled(true);
                             ToastUtils.showShortToast("反馈失败" + o.getMsg());
                         });
                     }
@@ -163,6 +168,7 @@ public class GTSuggestAddActivity extends BaseGTActivity {
                 public void onError(Response response, int errorCode, Exception e) {
                     new Handler(getMainLooper()).post(() -> {
                         mProgressBar.setVisibility(View.GONE);
+                        mAddText.setEnabled(true);
                         ToastUtils.showShortToast("反馈失败" + e.toString());
                     });
                 }
