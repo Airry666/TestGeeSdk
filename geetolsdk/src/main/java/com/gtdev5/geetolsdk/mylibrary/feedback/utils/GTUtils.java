@@ -30,6 +30,9 @@ public class GTUtils {
      * 设置沉浸式状态栏
      */
     public static void setImmersionStatusBar(Activity activity) {
+        ImmersionBar.with(activity)
+                .statusBarColorInt(activity.getResources().getColor(R.color.gt_main_color))
+                .init();
         if (ColorUtils.calculateLuminance(activity.getResources().getColor(R.color.gt_main_color)) >= 0.5) {
             ImmersionBar.with(activity)
                     .statusBarDarkFont(true, 0.2f)//状态栏字体深色或亮色
