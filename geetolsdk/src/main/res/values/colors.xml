@@ -23,4 +23,6 @@
     <color name="gt_text_btn_color">#ffffff</color>
     <!-- 反馈部分回复内容框颜色 -->
     <color name="gt_bg_reply_color">#e3e3e3</color>
+    <!-- 反馈部分反馈类型选择框颜色 -->
+    <color name="gt_check_color">#51ACE9</color>
 </resources>
