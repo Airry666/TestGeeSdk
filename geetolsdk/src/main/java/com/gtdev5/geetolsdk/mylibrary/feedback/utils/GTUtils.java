@@ -1,16 +1,11 @@
 package com.gtdev5.geetolsdk.mylibrary.feedback.utils;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.support.v4.graphics.ColorUtils;
 import android.util.Base64;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.gtdev5.geetolsdk.R;
 import com.gyf.barlibrary.ImmersionBar;

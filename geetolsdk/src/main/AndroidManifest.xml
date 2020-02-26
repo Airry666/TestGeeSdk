@@ -33,14 +33,5 @@
             android:screenOrientation="portrait"
             android:label="反馈回复"/>
         <!-- 反馈结束 -->
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="${applicationId}.provider"
-            android:grantUriPermissions="true"
-            android:exported="false">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/gt_file_paths" />
-        </provider>
     </application>
 </manifest>

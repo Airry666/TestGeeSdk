@@ -45,7 +45,7 @@ dependencies {
     compile 'com.aliyun.dpa:oss-android-sdk:+'
     // 反馈部分
     compile 'com.jwenfeng.pulltorefresh:library:1.2.7'
-    implementation 'com.zhihu.android:matisse:0.4.3'
+    compile 'com.zhihu.android:matisse:0.4.3'
     compile 'com.github.chrisbanes:PhotoView:2.1.4'
     compile 'com.gyf.immersionbar:immersionbar:2.3.3'
 }

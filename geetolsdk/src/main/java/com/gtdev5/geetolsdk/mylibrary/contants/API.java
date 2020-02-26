@@ -12,8 +12,8 @@ public interface API {
     /**
      * 通用接口
      */
-      public static String COMMON_URL = "http://app.wm002.cn/app/";//正式接口
-     //public static String COMMON_URL = "http://gtapp.ngrok.80xc.com:82/app/";//测试接口
+    public static String COMMON_URL = "http://app.wm002.cn/app/";//正式接口
+    //public static String COMMON_URL = "http://gtapp.ngrok.80xc.com:82/app/";//测试接口
 
     /**
      * 设备注册
@@ -138,4 +138,9 @@ public interface API {
      * // 2019.11.11新增
      */
     public static String USER_LOGIN_CHECK = "sms.statelogin";
+
+    /**
+     * 微信登录
+     */
+    public static String USER_WECHAT_LOGIN = "pub_wechat_login";
 }
