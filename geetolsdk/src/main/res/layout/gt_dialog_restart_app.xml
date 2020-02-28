@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/gt_bg_rect_white"
@@ -29,7 +28,7 @@
         android:lineSpacingExtra="10dp"
         android:textColor="#2e2e2e"
         android:textSize="16sp"
-        tools:text="网络异常，获取数据失败，软件无法正常启动，请检查网络，再重新启动软件。" />
+        android:text="网络异常，获取数据失败，软件无法正常启动，请检查网络，再重新启动软件。" />
 
     <View
         android:layout_width="match_parent"

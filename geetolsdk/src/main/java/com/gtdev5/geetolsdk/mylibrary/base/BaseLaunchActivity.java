@@ -122,7 +122,6 @@ public abstract class BaseLaunchActivity extends BaseGTActivity {
                     @Override
                     public void onFailure(Request request, Exception e) {
                         showRestartDialog();
-                        SpUtils.getInstance().putBoolean(Contants.FIRST_REGISTER, true);
                     }
 
                     @Override
@@ -133,7 +132,6 @@ public abstract class BaseLaunchActivity extends BaseGTActivity {
                                 getUpdateInfo();
                                 SpUtils.getInstance().putBoolean(Contants.FIRST_REGISTER, false);
                             } else {
-                                SpUtils.getInstance().putBoolean(Contants.FIRST_REGISTER, false);
                                 // 注册失败，弹出提示
                                 if (!TextUtils.isEmpty(o.getMsg())) {
                                     ToastUtils.showShortToast(o.getMsg());
@@ -144,7 +142,6 @@ public abstract class BaseLaunchActivity extends BaseGTActivity {
 
                     @Override
                     public void onError(Response response, int errorCode, Exception e) {
-                        SpUtils.getInstance().putBoolean(Contants.FIRST_REGISTER, true);
                         showRestartDialog();
                     }
                 });
