@@ -340,7 +340,8 @@ public abstract class BaseLaunchActivity extends BaseGTActivity {
                 finish();
             }
         });
-        dialog.setCancelable(false);
         dialog.show();
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
     }
 }
