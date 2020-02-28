@@ -17,6 +17,7 @@ import com.gtdev5.geetolsdk.mylibrary.beans.UpdateBean;
 import com.gtdev5.geetolsdk.mylibrary.callback.BaseCallback;
 import com.gtdev5.geetolsdk.mylibrary.contants.Contants;
 import com.gtdev5.geetolsdk.mylibrary.http.HttpUtils;
+import com.gtdev5.geetolsdk.mylibrary.util.DataSaveUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.DeviceUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.PermissionUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.SpUtils;
@@ -120,7 +121,7 @@ public abstract class BaseLaunchActivity extends BaseGTActivity {
 
                     @Override
                     public void onFailure(Request request, Exception e) {
-                        ToastUtils.showShortToast("网络异常！请开启网络后重新打开APP");
+                        showRestartDialog();
                         SpUtils.getInstance().putBoolean(Contants.FIRST_REGISTER, true);
                     }
 
@@ -144,12 +145,11 @@ public abstract class BaseLaunchActivity extends BaseGTActivity {
                     @Override
                     public void onError(Response response, int errorCode, Exception e) {
                         SpUtils.getInstance().putBoolean(Contants.FIRST_REGISTER, true);
-                        ToastUtils.showShortToast("网络异常！请开启网络后重新打开APP");
+                        showRestartDialog();
                     }
                 });
             } else {
-                // 没有网络请求
-                ToastUtils.showShortToast("网络异常！请开启网络后重新打开APP");
+                showRestartDialog();
             }
         } else {
             getUpdateInfo();
@@ -160,6 +160,7 @@ public abstract class BaseLaunchActivity extends BaseGTActivity {
      * 获取App数据信息
      */
     private void getUpdateInfo() {
+        UpdateBean updateBean = DataSaveUtils.getInstance().getUpdate();
         if (Utils.isNetworkAvailable(this)) {
             HttpUtils.getInstance().postUpdate(new BaseCallback<UpdateBean>() {
                 @Override
@@ -168,6 +169,11 @@ public abstract class BaseLaunchActivity extends BaseGTActivity {
 
                 @Override
                 public void onFailure(Request request, Exception e) {
+                    if (updateBean != null) {
+                        jumpToNext();
+                        return;
+                    }
+                    showRestartDialog();
                 }
 
                 @Override
@@ -175,17 +181,29 @@ public abstract class BaseLaunchActivity extends BaseGTActivity {
                     if (o != null && o.getIssucc()) {
                         // 数据获取成功跳转到下个页面
                         jumpToNext();
+                    } else {
+                        // 更新失败，弹出提示
+                        if (!TextUtils.isEmpty(o.getMsg())) {
+                            ToastUtils.showShortToast(o.getMsg());
+                        }
                     }
                 }
 
                 @Override
                 public void onError(Response response, int errorCode, Exception e) {
+                    if (updateBean != null) {
+                        jumpToNext();
+                        return;
+                    }
+                    showRestartDialog();
                 }
             });
         } else {
-            // 没有网络，但注册过，直接跳转到下个页面，并且做无网络提示
-            ToastUtils.showShortToast("网络异常！请检查网络是否开启");
-            jumpToNext();
+            if (updateBean != null) {
+                jumpToNext();
+                return;
+            }
+            showRestartDialog();
         }
         checkLogin();
     }
@@ -311,5 +329,20 @@ public abstract class BaseLaunchActivity extends BaseGTActivity {
         dialog.setText(R.id.dialog_tv_title, name);
         dialog.setText(R.id.dialog_tv_text, content);
         dialog.setText(R.id.dialog_bt_ok, btnText);
+    }
+
+    /**
+     * 提示网络问题重启应用弹框
+     */
+    public void showRestartDialog() {
+        int[] ids = new int[]{R.id.dialog_bt_ok};
+        CenterDialog dialog = new CenterDialog(mActivity, R.layout.gt_dialog_restart_app, ids, false);
+        dialog.setOnCenterClickListener((dial, view) -> {
+            if (view.getId() == R.id.dialog_bt_ok) {
+                dialog.dismiss();
+                finish();
+            }
+        });
+        dialog.show();
     }
 }
