@@ -249,4 +249,15 @@ public class DataSaveUtils {
         }
         return null;
     }
+
+    /**
+     * 获取ip地址
+     */
+    public String getIp() {
+        if (updateBean != null) {
+            return updateBean.getIp();
+        }
+        return null;
+    }
+
 }
